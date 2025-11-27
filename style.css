@@ -159,13 +159,123 @@ body {
 
 /* Responsive */
 @media (max-width: 980px) {
-  .grid { grid-template-columns: repeat(2, 1fr); }
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+
+  .banner {
+    width: 90vw;
+  }
+
+  .box {
+    padding: 40px 20px;
+    font-size: 20px;
+  }
 }
 
 @media (max-width: 600px) {
-  body { overflow-y: auto; }
-  .grid { grid-template-columns: 1fr; }
-  .box  { max-width: 100%; }
+  body {
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+
+  .stack {
+    width: 95vw;
+    transform: translateY(-20px);
+    gap: 24px;
+  }
+
+  .banner {
+    width: 95vw;
+    max-width: 100%;
+    height: auto;
+    object-fit: contain;
+  }
+
+  .grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .box {
+    max-width: 100%;
+    padding: 36px 20px;
+    font-size: 18px;
+  }
+
+  .box::before {
+    background-size: 60%;
+  }
+
+  .partners-section {
+    margin-top: 30px;
+  }
+
+  .partners-section h2 {
+    font-size: 18px;
+    margin-bottom: 12px;
+  }
+
+  .partner-logo {
+    height: 30px !important;
+  }
+
+  /* Make specific logos even smaller on mobile */
+  .partner-logo[alt="SC"] {
+    height: 100px !important;
+  }
+
+  .partner-logo[alt="SZ FHS"] {
+    height: 60px !important;
+  }
+
+  .partner-logo[alt="Sveučilište u Zagrebu"] {
+    height: 50px !important;
+  }
+
+  .partner-logo[alt="Croatica"],
+  .partner-logo[alt="DSN"] {
+    height: 50px !important;
+  }
+
+  .partner-logo[alt="SZZG"],
+  .partner-logo[alt="DBHZ"] {
+    height: 40px !important;
+  }
+}
+
+@media (max-width: 400px) {
+  .stack {
+    width: 98vw;
+    gap: 20px;
+  }
+
+  .banner {
+    width: 98vw;
+    max-width: 100%;
+  }
+
+  .box {
+    padding: 32px 16px;
+    font-size: 17px;
+  }
+
+  .partners-section h2 {
+    font-size: 16px;
+  }
+
+  .partner-logo {
+    height: 25px !important;
+  }
+
+  .partner-logo[alt="SC"] {
+    height: 80px !important;
+  }
+
+  .partner-logo[alt="SZ FHS"] {
+    height: 50px !important;
+  }
 }
 
 /* ========== Partners & Allies section on main page ========== */
@@ -343,35 +453,77 @@ body {
   box-shadow: 0 12px 32px rgba(153, 4, 3, 0.15);
 }
 
-/* Photo Container */
+/* Photo Container - UPDATED FOR CIRCULAR PHOTOS */
 .rep-photo-container {
   position: relative;
   width: 100%;
-  height: 280px;
-  overflow: hidden;
+  height: 320px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   background: linear-gradient(135deg, #990403 0%, #c41e1c 100%);
+  padding: 40px;
+  box-sizing: border-box;
 }
 
 .rep-photo {
-  width: 100%;
-  height: 100%;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
   object-fit: cover;
-  object-position: center;
+  object-position: center center;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+  display: block;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+}
+
+/* Custom border frame overlay */
+.rep-photo-container::after {
+  content: "";
+  position: absolute;
+  width: 260px;
+  height: 260px;
+  border-radius: 50%;
+  background-image: url('photos/border-frame.png');
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  pointer-events: none;
+  z-index: 2;
   transition: transform 0.4s ease;
+}
+
+/* Optional: Add white overlay to make border appear thinner */
+.rep-photo-container::before {
+  content: "";
+  position: absolute;
+  width: 220px;
+  height: 220px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #990403 0%, #c41e1c 100%);
+  pointer-events: none;
+  z-index: 1.5;
+  transition: transform 0.4s ease;
+}
+
+.rep-card:hover .rep-photo-container::before {
+  transform: scale(1.08);
 }
 
 .rep-card:hover .rep-photo {
   transform: scale(1.08);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+}
+
+.rep-card:hover .rep-photo-container::after {
+  transform: scale(1.08);
 }
 
 .rep-photo-overlay {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 60px;
-  background: linear-gradient(to top, rgba(0, 0, 0, 0.4), transparent);
-  pointer-events: none;
+  display: none;
 }
 
 /* Content Section */
@@ -472,6 +624,8 @@ body {
   transition: all 0.2s ease;
   flex: 1;
   justify-content: center;
+  cursor: pointer;
+  font-family: Arial, sans-serif;
 }
 
 .contact-link:hover {
@@ -488,7 +642,8 @@ body {
 /* Responsive adjustments for Representatives page */
 @media (max-width: 768px) {
   .representatives-wrapper {
-    padding: 30px 15px 50px;
+    margin-top: 60px;
+    padding: 20px 15px 40px;
   }
 
   .representatives-grid {
@@ -497,19 +652,106 @@ body {
   }
 
   .rep-photo-container {
+    height: 280px;
+    padding: 30px;
+  }
+
+  .rep-photo {
+    width: 180px;
+    height: 180px;
+  }
+
+  .rep-photo-container::after {
+    width: 240px;
     height: 240px;
   }
 
+  .rep-photo-container::before {
+    width: 200px;
+    height: 200px;
+  }
+
   .rep-name {
-    font-size: 21px;
+    font-size: 20px;
+  }
+
+  .rep-position {
+    font-size: 13px;
+  }
+
+  .rep-bio {
+    font-size: 13px;
   }
 
   .representatives-intro p {
     font-size: 16px;
   }
+
+  .rep-tags {
+    gap: 6px;
+  }
+
+  .tag {
+    font-size: 11px;
+    padding: 5px 12px;
+  }
+
+  .topbar h1 {
+    font-size: 18px;
+  }
+
+  .logo-top-left {
+    height: 35px;
+  }
 }
 
 @media (max-width: 480px) {
+  .representatives-wrapper {
+    margin-top: 60px;
+    padding: 15px 10px 30px;
+  }
+
+  .rep-photo-container {
+    height: 260px;
+    padding: 25px;
+  }
+
+  .rep-photo {
+    width: 160px;
+    height: 160px;
+  }
+
+  .rep-photo-container::after {
+    width: 220px;
+    height: 220px;
+  }
+
+  .rep-photo-container::before {
+    width: 180px;
+    height: 180px;
+  }
+
+  .rep-content {
+    padding: 20px 16px 16px;
+  }
+
+  .rep-name {
+    font-size: 19px;
+  }
+
+  .rep-position {
+    font-size: 12px;
+  }
+
+  .rep-education {
+    font-size: 13px;
+  }
+
+  .rep-bio {
+    font-size: 13px;
+    line-height: 1.5;
+  }
+
   .rep-contact {
     flex-direction: column;
     gap: 8px;
@@ -517,5 +759,22 @@ body {
 
   .contact-link {
     width: 100%;
+    padding: 10px 16px;
+  }
+
+  .topbar {
+    padding: 10px 15px;
+  }
+
+  .topbar h1 {
+    font-size: 16px;
+  }
+
+  .logo-top-left {
+    height: 32px;
+  }
+
+  .representatives-intro p {
+    font-size: 15px;
   }
 }
