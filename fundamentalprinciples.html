@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Fundamental Principles – Atlas</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- Reuse your CSS -->
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="principles-page">
+  <!-- Top bar with logo in the left top corner -->
+  <header class="topbar">
+  <!-- Change "index.html" to your actual main page filename if different -->
+  <a href="index.html" class="logo-link">
+    <img src="atlas.png" alt="Atlas Logo" class="logo-top-left" />
+  </a>
+  <h1>Fundamental Principles</h1>
+</header>
+
+  <!-- PDF container -->
+  <main class="pdf-wrapper">
+    <!-- Change the file name below to match your actual PDF name -->
+    <embed src="Atlas_Fundamentals.pdf"
+           type="application/pdf"
+           class="pdf-viewer" />
+
+    <!-- Fallback link if embed doesn't work -->
+    <p class="pdf-fallback">
+      If the document is not visible,
+      <a href="fundamental_principles.pdf" target="_blank">click here to open the PDF</a>.
+    </p>
+  </main>
+</body>
+</html>

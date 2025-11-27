@@ -1,0 +1,521 @@
+/* General body setup */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f8f8f8;
+  text-align: center;
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* Logo (center + spin in/out) */
+#logo {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0) rotate(0deg);
+  width: 200px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: 10;
+}
+#logo.show { opacity: 1; animation: spinIn 0.8s forwards; }
+#logo.hide { animation: spinOut 0.8s forwards; }
+
+@keyframes spinIn {
+  0% { transform: translate(-50%, -50%) scale(0) rotate(-360deg); opacity: 0; }
+  100%{ transform: translate(-50%, -50%) scale(1) rotate(0deg);   opacity: 1; }
+}
+@keyframes spinOut {
+  0% { transform: translate(-50%, -50%) scale(1) rotate(0deg);   opacity: 1; }
+  100%{ transform: translate(-50%, -50%) scale(0) rotate(360deg); opacity: 0; }
+}
+
+/* Hide helper — must win */
+.hidden { display: none !important; }
+
+/* OPTIONS (center the whole block, but allow internal scroll if tall) */
+#options {
+  position: fixed;
+  inset: 0;
+  display: grid;
+  place-content: center;
+  padding: 20px;
+  z-index: 1;
+  overflow-y: auto;
+}
+
+/* Stack puts banner above grid and moves everything slightly upwards */
+.stack {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 32px;
+  width: min(1100px, 92vw);
+  transform: translateY(-40px); /* move banner + 6 blocks + partners a bit up */
+}
+
+/* Banner image */
+.banner {
+  width: min(820px, 80vw);
+  height: auto;
+  border-radius: 10px;
+  filter: drop-shadow(0 10px 22px rgba(0,0,0,0.12));
+}
+
+/* 3×2 grid centered */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px;
+  width: 100%;
+  justify-items: center;
+}
+
+/* Boxes */
+.box {
+  background: #fff;
+  color: #990403;
+  border-radius: 12px;
+  padding: 52px 28px;
+  font-size: 22px;
+  font-weight: 700;
+  text-align: center;
+  width: 100%;
+  max-width: 320px;
+  box-shadow: 0 8px 22px rgba(0,0,0,0.12);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+
+  text-decoration: none;
+  display: block;
+
+  /* needed for watermark */
+  position: relative;
+  overflow: hidden;
+}
+
+/* base watermark layer (each box will set its own background-image) */
+.box::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 70%;   /* adjust size of watermark */
+  opacity: 0.06;          /* how faint the watermark is */
+  pointer-events: none;
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+.box:hover::before {
+  opacity: 0.11;
+  transform: scale(1.03);
+}
+
+/* keep the text above the watermark */
+.box span {
+  position: relative;
+  z-index: 1;
+}
+
+.box:hover {
+  transform: translateY(-6px);
+  cursor: pointer;
+  box-shadow: 0 12px 28px rgba(0,0,0,0.16);
+}
+
+/* Per-card watermark images (update paths to your actual icons) */
+.box-fundamental::before {
+  background-image: url("icons/fundamental.png");
+}
+
+.box-events::before {
+  background-image: url("icons/events.png");
+}
+
+.box-reps::before {
+  background-image: url("icons/reps.png");
+}
+
+.box-wisdom::before {
+  background-image: url("icons/wisdom.png");
+}
+
+.box-physical::before {
+  background-image: url("icons/physical.png");
+}
+
+.box-career::before {
+  background-image: url("icons/career.png");
+}
+
+/* Fade-in helper */
+.fade-in { animation: fadeIn 1s ease forwards; }
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(30px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Responsive */
+@media (max-width: 980px) {
+  .grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 600px) {
+  body { overflow-y: auto; }
+  .grid { grid-template-columns: 1fr; }
+  .box  { max-width: 100%; }
+}
+
+/* ========== Partners & Allies section on main page ========== */
+
+.partners-section {
+  margin-top: 40px;
+  width: 100%;
+}
+
+.partners-section h2 {
+  margin: 0 0 16px;
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: #990403;   /* same red */
+}
+
+/* The strip that holds the moving logos */
+.partner-strip {
+  overflow: hidden;
+  border-top: 1px solid rgba(0,0,0,0.06);
+  border-bottom: 1px solid rgba(0,0,0,0.06);
+  padding: 14px 0;
+}
+
+.partner-track {
+  display: inline-flex;
+  align-items: center;
+  gap: 40px;
+  animation: partnersScroll 25s linear infinite;
+}
+
+/* Continuous scroll left; because logos are duplicated,
+   when the first half leaves the screen, the second half follows seamlessly */
+@keyframes partnersScroll {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.partner-logo {
+  height: 40px;
+  width: auto;
+  filter: grayscale(20%);
+  opacity: 0.9;
+  transition: transform 0.2s ease, filter 0.2s ease, opacity 0.2s ease;
+}
+
+.partner-logo:hover {
+  transform: scale(1.05);
+  filter: grayscale(0%);
+  opacity: 1;
+}
+
+/* ========== Fundamental Principles page ========== */
+
+.principles-page {
+  margin: 0;
+  padding: 0;
+  background-color: #f8f8f8;
+  font-family: Arial, sans-serif;
+}
+
+/* Top bar with logo in the top-left corner */
+.topbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 12px 20px;
+  background-color: #ffffff;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+  z-index: 100;
+}
+
+/* clickable logo with spin on hover */
+.logo-link {
+  display: inline-block;
+  cursor: pointer;
+}
+
+.logo-top-left {
+  height: 40px;
+  width: auto;
+  transition: transform 0.6s ease;
+}
+
+.logo-link:hover .logo-top-left {
+  transform: rotate(360deg);
+}
+
+.topbar h1 {
+  margin: 0;
+  font-size: 20px;
+  color: #990403;      /* updated red */
+}
+
+/* PDF area takes the rest of the screen height under the header */
+.pdf-wrapper {
+  margin-top: 72px; /* space for header */
+  padding: 0 20px 20px;
+  height: calc(100vh - 92px);
+  box-sizing: border-box;
+}
+
+.pdf-viewer {
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+.pdf-fallback {
+  margin-top: 12px;
+  font-size: 14px;
+}
+
+/* ========== Representatives page ========== */
+
+.representatives-page {
+  margin: 0;
+  padding: 0;
+  background-color: #f8f8f8;
+  font-family: Arial, sans-serif;
+  overflow-y: auto;
+  height: auto;
+  min-height: 100vh;
+}
+
+.representatives-wrapper {
+  margin-top: 72px;
+  padding: 40px 20px 60px;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.representatives-intro {
+  text-align: center;
+  margin-bottom: 50px;
+  padding: 0 20px;
+}
+
+.representatives-intro p {
+  font-size: 18px;
+  line-height: 1.6;
+  color: #555;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+/* Representatives Grid */
+.representatives-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 35px;
+  padding: 0 10px;
+}
+
+/* Individual Representative Card */
+.rep-card {
+  background: #ffffff;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  display: flex;
+  flex-direction: column;
+}
+
+.rep-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 32px rgba(153, 4, 3, 0.15);
+}
+
+/* Photo Container */
+.rep-photo-container {
+  position: relative;
+  width: 100%;
+  height: 280px;
+  overflow: hidden;
+  background: linear-gradient(135deg, #990403 0%, #c41e1c 100%);
+}
+
+.rep-photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  transition: transform 0.4s ease;
+}
+
+.rep-card:hover .rep-photo {
+  transform: scale(1.08);
+}
+
+.rep-photo-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 60px;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.4), transparent);
+  pointer-events: none;
+}
+
+/* Content Section */
+.rep-content {
+  padding: 28px 24px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  flex: 1;
+}
+
+.rep-name {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 700;
+  color: #990403;
+  line-height: 1.2;
+}
+
+.rep-position {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 600;
+  color: #666;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.rep-details {
+  margin-top: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.rep-education {
+  margin: 0;
+  font-size: 14px;
+  color: #990403;
+  font-weight: 600;
+  font-style: italic;
+}
+
+.rep-bio {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.6;
+  color: #555;
+}
+
+/* Tags */
+.rep-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.tag {
+  display: inline-block;
+  padding: 6px 14px;
+  background-color: #fff0f0;
+  color: #990403;
+  font-size: 12px;
+  font-weight: 600;
+  border-radius: 20px;
+  border: 1px solid #ffe0e0;
+  transition: all 0.2s ease;
+}
+
+.tag:hover {
+  background-color: #990403;
+  color: #ffffff;
+  border-color: #990403;
+}
+
+/* Contact Links */
+.rep-contact {
+  display: flex;
+  gap: 12px;
+  margin-top: auto;
+  padding-top: 16px;
+  border-top: 1px solid #f0f0f0;
+}
+
+.contact-link {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  background-color: #f8f8f8;
+  color: #990403;
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 600;
+  border-radius: 8px;
+  border: 1px solid #e8e8e8;
+  transition: all 0.2s ease;
+  flex: 1;
+  justify-content: center;
+}
+
+.contact-link:hover {
+  background-color: #990403;
+  color: #ffffff;
+  border-color: #990403;
+  transform: translateY(-2px);
+}
+
+.contact-link svg {
+  flex-shrink: 0;
+}
+
+/* Responsive adjustments for Representatives page */
+@media (max-width: 768px) {
+  .representatives-wrapper {
+    padding: 30px 15px 50px;
+  }
+
+  .representatives-grid {
+    grid-template-columns: 1fr;
+    gap: 25px;
+  }
+
+  .rep-photo-container {
+    height: 240px;
+  }
+
+  .rep-name {
+    font-size: 21px;
+  }
+
+  .representatives-intro p {
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .rep-contact {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .contact-link {
+    width: 100%;
+  }
+}
