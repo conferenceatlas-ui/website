@@ -180,22 +180,30 @@ body {
     overflow-x: hidden;
   }
 
+  #options {
+    padding: 10px;
+  }
+
   .stack {
-    width: 95vw;
-    transform: translateY(-20px);
-    gap: 24px;
+    width: 100%;
+    max-width: 100%;
+    transform: translateY(-10px);
+    gap: 20px;
+    padding: 0 5px;
   }
 
   .banner {
-    width: 95vw;
+    width: 100%;
     max-width: 100%;
     height: auto;
     object-fit: contain;
+    border-radius: 8px;
   }
 
   .grid {
     grid-template-columns: 1fr;
     gap: 16px;
+    width: 100%;
   }
 
   .box {
@@ -247,13 +255,16 @@ body {
 
 @media (max-width: 400px) {
   .stack {
-    width: 98vw;
-    gap: 20px;
+    width: 100%;
+    max-width: 100%;
+    gap: 16px;
+    padding: 0 3px;
   }
 
   .banner {
-    width: 98vw;
+    width: 100%;
     max-width: 100%;
+    border-radius: 6px;
   }
 
   .box {
@@ -759,7 +770,9 @@ body {
 
   .contact-link {
     width: 100%;
+    max-width: 100%;
     padding: 10px 16px;
+    box-sizing: border-box;
   }
 
   .topbar {
