@@ -41,7 +41,7 @@ body {
   inset: 0;
   display: grid;
   place-content: center;
-  padding: 20px;
+  padding: 40px 20px 20px 20px;
   z-index: 1;
   overflow-y: auto;
 }
@@ -53,7 +53,6 @@ body {
   align-items: center;
   gap: 32px;
   width: min(1100px, 92vw);
-  transform: translateY(-40px); /* move banner + 6 blocks + partners a bit up */
 }
 
 /* Banner image */
@@ -181,23 +180,25 @@ body {
   }
 
   #options {
-    padding: 10px;
+    display: block;
+    padding: 20px 10px;
   }
 
   .stack {
     width: 100%;
     max-width: 100%;
-    transform: translateY(-10px);
+    margin: 0 auto;
     gap: 20px;
     padding: 0 5px;
   }
 
   .banner {
-    width: 100%;
-    max-width: 100%;
+    width: 80%;
+    max-width: 300px;
     height: auto;
-    object-fit: contain;
     border-radius: 8px;
+    display: block;
+    margin: 0 auto;
   }
 
   .grid {
@@ -213,7 +214,7 @@ body {
   }
 
   .box::before {
-    background-size: 60%;
+    background-size: 35%;
   }
 
   .partners-section {
@@ -262,8 +263,7 @@ body {
   }
 
   .banner {
-    width: 100%;
-    max-width: 100%;
+    width: 90%;
     border-radius: 6px;
   }
 
@@ -341,14 +341,7 @@ body {
   opacity: 1;
 }
 
-/* ========== Fundamental Principles page ========== */
-
-.principles-page {
-  margin: 0;
-  padding: 0;
-  background-color: #f8f8f8;
-  font-family: Arial, sans-serif;
-}
+/* ========== Sub-pages Shared Styles (Principles, Vitality, Wisdom, Conquest) ========== */
 
 /* Top bar with logo in the top-left corner */
 .topbar {
@@ -387,23 +380,197 @@ body {
   color: #990403;      /* updated red */
 }
 
-/* PDF area takes the rest of the screen height under the header */
-.pdf-wrapper {
-  margin-top: 72px; /* space for header */
-  padding: 0 20px 20px;
-  height: calc(100vh - 92px);
+.subpage-body {
+  background-color: #f8f8f8;
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  overflow-y: auto;
+  height: auto;
+}
+
+.content-wrapper {
+  margin-top: 72px;
+  padding: 60px 20px;
+  max-width: 1100px;
+  margin-left: auto;
+  margin-right: auto;
+  position: relative;
+  z-index: 1;
+}
+
+.page-intro {
+  text-align: center;
+  margin-bottom: 60px;
+  animation: fadeIn 0.8s ease forwards;
+}
+
+.page-intro h2 {
+  color: #990403;
+  font-size: 32px;
+  font-weight: 700;
+  margin-bottom: 20px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.page-intro p {
+  font-size: 18px;
+  line-height: 1.6;
+  color: #555;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.content-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 30px;
+  animation: fadeIn 1s ease forwards;
+}
+
+.info-card {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 40px 30px;
+  text-align: center;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border-bottom: 4px solid transparent;
   box-sizing: border-box;
 }
 
-.pdf-viewer {
-  width: 100%;
-  height: 100%;
-  border: none;
+.info-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 32px rgba(153, 4, 3, 0.15);
+  border-bottom: 4px solid #990403;
 }
 
-.pdf-fallback {
-  margin-top: 12px;
+.info-card h3 {
+  margin: 0 0 12px;
+  font-size: 20px;
+  color: #990403;
+  font-weight: 700;
+}
+
+.info-card p {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.6;
+  color: #666;
+}
+
+/* Specific Background for Principles Page */
+.principles-page::before {
+  content: "";
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 600px;
+  height: 600px;
+  background-image: url("icons/fundamental.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  opacity: 0.05;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Center the grid items specifically for the Principles page */
+.principles-page .content-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.principles-page .info-card {
+  flex: 1 1 300px;
+  max-width: 400px;
+}
+
+/* References Section */
+.references-section {
+  margin-top: 60px;
+  padding-top: 30px;
+  border-top: 1px solid #e0e0e0;
+  text-align: left;
   font-size: 14px;
+  color: #555;
+  max-width: 900px;
+  margin-left: auto;
+  margin-right: auto;
+  animation: fadeIn 1.2s ease forwards;
+}
+
+.references-section h3 {
+  color: #990403;
+  font-size: 18px;
+  margin-bottom: 16px;
+  font-weight: 700;
+}
+
+.references-section ol {
+  padding-left: 20px;
+  margin: 0;
+}
+
+.references-section li {
+  margin-bottom: 12px;
+  line-height: 1.5;
+}
+
+.references-section a {
+  color: #990403;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.references-section a:hover {
+  text-decoration: underline;
+}
+
+/* Responsive adjustments for Sub-pages (Vitality, Wisdom, Principles, Conquest) */
+@media (max-width: 600px) {
+  .content-wrapper {
+    margin-top: 60px;
+    padding: 30px 15px;
+  }
+
+  .page-intro {
+    margin-bottom: 40px;
+  }
+
+  .page-intro h2 {
+    font-size: 24px;
+  }
+
+  .page-intro p {
+    font-size: 16px;
+  }
+
+  .content-grid {
+    grid-template-columns: 1fr; /* Force single column on mobile */
+    gap: 20px;
+  }
+
+  /* Fix for Principles page flex layout on mobile */
+  .principles-page .info-card {
+    flex: 1 1 100%;
+    max-width: 100%;
+  }
+
+  .info-card {
+    padding: 30px 20px;
+  }
+
+  /* Adjust background watermark size for mobile */
+  .principles-page::before {
+    width: 300px;
+    height: 300px;
+  }
 }
 
 /* ========== Representatives page ========== */
@@ -788,6 +955,500 @@ body {
   }
 
   .representatives-intro p {
+    font-size: 15px;
+  }
+}
+
+/* Language Switcher */
+.language-switcher-container {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  z-index: 1000;
+}
+
+.language-switcher {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background-color: rgba(0, 0, 0, 0.2);
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+}
+
+.language-switcher .lang-link {
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 0.9rem;
+  transition: color 0.3s;
+}
+
+.language-switcher .lang-link.active,
+.language-switcher .lang-link:hover {
+  color: #c0c0c0; /* Light gray for active/hover */
+}
+
+.language-switcher span {
+  color: white;
+}
+
+.topbar .language-switcher {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding-right: 1rem;
+  background-color: transparent;
+}
+
+.topbar .language-switcher .lang-link {
+    color: #990403;
+}
+
+.topbar .language-switcher span {
+    color: #990403;
+}
+
+/* ========== Vitality / Challenge Page — Enhanced ========== */
+
+/* Background watermark for vitality page */
+.vitality-page::before {
+  content: "";
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 600px;
+  height: 600px;
+  background-image: url("icons/physical.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  opacity: 0.04;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Challenge Section */
+.challenge-section {
+  margin-bottom: 70px;
+  animation: fadeIn 0.8s ease forwards;
+}
+
+/* Challenge Header */
+.challenge-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+  margin-bottom: 50px;
+  padding: 30px 40px;
+  background: linear-gradient(135deg, #990403 0%, #c41e1c 50%, #990403 100%);
+  border-radius: 20px;
+  box-shadow: 0 8px 32px rgba(153, 4, 3, 0.25);
+  position: relative;
+  overflow: hidden;
+}
+
+.challenge-header::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 30% 50%, rgba(255,255,255,0.08) 0%, transparent 60%);
+  pointer-events: none;
+}
+
+.challenge-title {
+  color: #ffffff;
+  font-size: 30px;
+  font-weight: 800;
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.2);
+  position: relative;
+  z-index: 1;
+}
+
+.challenge-logo {
+  height: 72px;
+  width: auto;
+  filter: brightness(0) invert(1) drop-shadow(0 2px 6px rgba(0,0,0,0.2));
+  position: relative;
+  z-index: 1;
+  transition: transform 0.4s ease;
+}
+
+.challenge-logo:hover {
+  transform: scale(1.1) rotate(3deg);
+}
+
+/* Medal Grid */
+.medal-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+/* Medal Cards */
+.medal-card {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 22px 26px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+  text-align: left;
+  border-left: 4px solid transparent;
+  position: relative;
+  overflow: hidden;
+}
+
+.medal-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, transparent 0%, rgba(153, 4, 3, 0.02) 100%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.medal-card:hover {
+  transform: translateY(-4px) scale(1.01);
+  box-shadow: 0 12px 36px rgba(153, 4, 3, 0.15);
+}
+
+.medal-card:hover::before {
+  opacity: 1;
+}
+
+/* Colored left border on hover per medal tier */
+.medal-card:nth-child(1) { border-left-color: #b9936c; }
+.medal-card:nth-child(2) { border-left-color: #8c8c8c; }
+.medal-card:nth-child(3) { border-left-color: #cd7f32; }
+.medal-card:nth-child(4) { border-left-color: #c0c0c0; }
+.medal-card:nth-child(5) { border-left-color: #ffd700; }
+.medal-card:nth-child(6) { border-left-color: #d4cfc9; }
+.medal-card:nth-child(7) { border-left-color: #82cedb; }
+
+/* Medal Icon */
+.medal-icon {
+  width: 62px;
+  height: 62px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  position: relative;
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+  /* Outer ring border */
+  border: 3px solid rgba(0,0,0,0.08);
+}
+
+.medal-card:hover .medal-icon {
+  transform: scale(1.15) rotate(8deg);
+}
+
+/* Inner ring to give a coin/medal feel */
+.medal-icon::before {
+  content: "\2605"; /* star character */
+  position: absolute;
+  inset: 5px;
+  border: 2px solid rgba(255,255,255,0.25);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  color: rgba(255,255,255,0.35);
+  text-shadow: 0 1px 2px rgba(0,0,0,0.15);
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Glossy shine sweep */
+.medal-icon::after {
+  content: "";
+  position: absolute;
+  top: -30%;
+  left: -30%;
+  width: 160%;
+  height: 160%;
+  background: linear-gradient(
+    135deg,
+    rgba(255,255,255,0) 0%,
+    rgba(255,255,255,0.4) 45%,
+    rgba(255,255,255,0) 55%,
+    rgba(255,255,255,0) 100%
+  );
+  border-radius: 50%;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.4s ease, transform 0.6s ease;
+  transform: translateX(-60%);
+  z-index: 2;
+}
+
+.medal-card:hover .medal-icon::after {
+  opacity: 1;
+  transform: translateX(60%);
+}
+
+/* Custom Medal Colors */
+.medal-icon.wood {
+  background: linear-gradient(145deg, #d4ad7c, #8a6e4b, #c9a37c);
+  border-color: #7a5e3b;
+  box-shadow: inset 0 2px 4px rgba(255,255,255,0.15), inset 0 -4px 8px rgba(0,0,0,0.25), 0 4px 14px rgba(138,110,75,0.4);
+}
+.medal-icon.wood::before { color: rgba(255,255,255,0.25); }
+
+.medal-icon.iron {
+  background: linear-gradient(145deg, #d5d5d5, #6e6e6e, #aaaaaa);
+  border-color: #666;
+  box-shadow: inset 0 2px 4px rgba(255,255,255,0.2), inset 0 -4px 8px rgba(0,0,0,0.25), 0 4px 14px rgba(100,100,100,0.4);
+}
+
+.medal-icon.bronze {
+  background: linear-gradient(145deg, #f0a84c, #8b5a1e, #cd7f32);
+  border-color: #7a4b12;
+  box-shadow: inset 0 2px 4px rgba(255,255,255,0.2), inset 0 -4px 8px rgba(0,0,0,0.25), 0 4px 14px rgba(205,127,50,0.45);
+}
+
+.medal-icon.silver {
+  background: linear-gradient(145deg, #f8f8f8, #8e8e8e, #d4d4d4);
+  border-color: #999;
+  box-shadow: inset 0 2px 4px rgba(255,255,255,0.35), inset 0 -4px 8px rgba(0,0,0,0.15), 0 4px 14px rgba(180,180,180,0.45);
+}
+.medal-icon.silver::before { color: rgba(255,255,255,0.45); border-color: rgba(255,255,255,0.35); }
+
+.medal-icon.gold {
+  background: linear-gradient(145deg, #ffe66a, #9e7c00, #ffd700);
+  border-color: #b89b00;
+  box-shadow: inset 0 2px 6px rgba(255,255,255,0.3), inset 0 -4px 8px rgba(0,0,0,0.2), 0 4px 16px rgba(255,215,0,0.5);
+}
+.medal-icon.gold::before { color: rgba(255,255,255,0.5); border-color: rgba(255,255,255,0.35); }
+
+.medal-icon.platinum {
+  background: linear-gradient(145deg, #f5f4f2, #9e9c9a, #e0dfdd);
+  border-color: #b0aeac;
+  box-shadow: inset 0 2px 6px rgba(255,255,255,0.4), inset 0 -4px 8px rgba(0,0,0,0.12), 0 4px 16px rgba(200,198,196,0.5);
+}
+.medal-icon.platinum::before { color: rgba(255,255,255,0.5); border-color: rgba(255,255,255,0.4); }
+
+.medal-icon.diamond {
+  background: linear-gradient(145deg, #e8faff, #48a8be, #b9ecf7);
+  border-color: #5eb8cc;
+  box-shadow: inset 0 2px 6px rgba(255,255,255,0.45), inset 0 -4px 8px rgba(0,0,0,0.12), 0 4px 18px rgba(130,206,219,0.55);
+}
+.medal-icon.diamond::before { content: "\2666"; color: rgba(255,255,255,0.55); border-color: rgba(255,255,255,0.4); font-size: 16px; }
+
+.medal-info {
+  flex-grow: 1;
+}
+
+.medal-card h3 {
+  margin: 0 0 4px;
+  font-size: 17px;
+  color: #990403;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+}
+
+.medal-card p {
+  margin: 0;
+  font-size: 15px;
+  color: #777;
+  font-weight: 600;
+}
+
+/* ========== Guidelines Section ========== */
+
+.guidelines-section {
+  margin-top: 70px;
+  animation: fadeIn 1s ease forwards;
+}
+
+.guidelines-title {
+  color: #990403;
+  font-size: 26px;
+  font-weight: 800;
+  margin-bottom: 36px;
+  text-align: center;
+  letter-spacing: 0.5px;
+  position: relative;
+  padding-bottom: 16px;
+}
+
+.guidelines-title::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 3px;
+  background: linear-gradient(90deg, #990403, #c41e1c);
+  border-radius: 2px;
+}
+
+.guideline-card {
+  background: #ffffff;
+  border-radius: 18px;
+  padding: 36px 36px 32px;
+  margin-bottom: 28px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+  text-align: left;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border-top: 3px solid transparent;
+  position: relative;
+}
+
+.guideline-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 36px rgba(153, 4, 3, 0.12);
+  border-top-color: #990403;
+}
+
+.guideline-card h3 {
+  margin: 0 0 16px;
+  font-size: 21px;
+  color: #990403;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.guideline-card h3::before {
+  content: "";
+  display: inline-block;
+  width: 5px;
+  height: 24px;
+  background: linear-gradient(to bottom, #990403, #c41e1c);
+  border-radius: 3px;
+  flex-shrink: 0;
+}
+
+.guideline-card p, .guideline-card ol {
+  font-size: 16px;
+  line-height: 1.8;
+  color: #555;
+}
+
+.guideline-card ol {
+  padding-left: 24px;
+  counter-reset: guideline-counter;
+}
+
+.guideline-card ol li {
+  margin-bottom: 14px;
+  padding-left: 4px;
+}
+
+.guideline-card a {
+  color: #990403;
+  font-weight: 700;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 10px;
+  padding: 8px 18px;
+  background: #fff0f0;
+  border-radius: 8px;
+  border: 1px solid #ffe0e0;
+  transition: all 0.2s ease;
+  font-size: 14px;
+}
+
+.guideline-card a:hover {
+  background: #990403;
+  color: #ffffff;
+  border-color: #990403;
+  transform: translateY(-1px);
+}
+
+/* ========== Vitality Responsive ========== */
+
+@media (max-width: 768px) {
+  .challenge-header {
+    flex-direction: column;
+    gap: 16px;
+    padding: 24px 20px;
+    border-radius: 16px;
+  }
+
+  .challenge-title {
+    font-size: 22px;
+    letter-spacing: 1px;
+  }
+
+  .challenge-logo {
+    height: 56px;
+  }
+
+  .medal-grid {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  .guidelines-title {
+    font-size: 22px;
+  }
+
+  .guideline-card {
+    padding: 26px 22px;
+  }
+
+  .vitality-page::before {
+    width: 300px;
+    height: 300px;
+  }
+}
+
+@media (max-width: 480px) {
+  .challenge-header {
+    padding: 20px 16px;
+  }
+
+  .challenge-title {
+    font-size: 18px;
+  }
+
+  .challenge-logo {
+    height: 48px;
+  }
+
+  .challenge-logo.left {
+    display: none;
+  }
+
+  .medal-card {
+    padding: 16px 18px;
+  }
+
+  .medal-icon {
+    width: 46px;
+    height: 46px;
+  }
+
+  .guideline-card {
+    padding: 22px 18px;
+    border-radius: 14px;
+  }
+
+  .guideline-card h3 {
+    font-size: 18px;
+  }
+
+  .guideline-card p, .guideline-card ol {
     font-size: 15px;
   }
 }
